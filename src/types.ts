@@ -17,6 +17,10 @@ export type Planets = {
 export type PlanetsContext = {
   planets: Planets[],
   setPlanets: (element: []) => void,
+  dataFiltered: Planets[],
+  setDataFiltered: (element: []) => void,
+  filteredPlanets: string,
+  setFilteredPlanets: (element: string) => void,
 //   loading: boolean,
 //   setLoading: (element: boolean) => void,
 };

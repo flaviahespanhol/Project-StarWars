@@ -1,11 +1,46 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PlanetsAPI from '../context/api-planets-context';
 import { Planets } from '../types';
 
 function Table() {
-  const { planets } = useContext(PlanetsAPI);
+  const { planets,
+    filteredPlanets,
+    setPlanets,
+    setFilteredPlanets } = useContext(PlanetsAPI);
+  const [newPlanets, setNewPlanets] = useState<Planets[]>(planets);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredPlanets(e.target.value);
+    // if (e.target.value.length === 0) {
+    //   setNewPlanets(planets as Planets[]);
+    // } else {
+    //   setNewPlanets(filter);
+    // }
+  };
+  useEffect(() => {
+    setNewPlanets(planets);
+    console.log(newPlanets);
+  }, []);
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const filter = planets.filter((planet) => planet.name.toLowerCase()
+  //     .includes(e.target.value));
+  //   setPlanets(filter);
+  //   if (e.target.value.length === 0) {
+  //     setPlanets({ planets });
+  //   }
+  // };
+
   return (
     <div>
+      <header>
+        <input
+          type="text"
+          placeholder="Search Planet"
+          data-testid="name-filter"
+          value={ filteredPlanets }
+          onChange={ handleChange }
+        />
+      </header>
       <table>
         <thead>
           <tr>
@@ -25,23 +60,25 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planets.map((planet: Planets, index) => (
-            <tr key={ index }>
-              <td>{planet.name}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.surface_water}</td>
-              <td>{planet.population}</td>
-              <td>{planet.films}</td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>{planet.url}</td>
-            </tr>
-          ))}
+          {newPlanets
+            .filter((planet) => planet.name.toLowerCase()
+              .includes(filteredPlanets)).map((planet: Planets, index) => (
+                <tr key={ index }>
+                  <td>{planet.name}</td>
+                  <td>{planet.rotation_period}</td>
+                  <td>{planet.orbital_period}</td>
+                  <td>{planet.diameter}</td>
+                  <td>{planet.climate}</td>
+                  <td>{planet.gravity}</td>
+                  <td>{planet.terrain}</td>
+                  <td>{planet.surface_water}</td>
+                  <td>{planet.population}</td>
+                  <td>{planet.films}</td>
+                  <td>{planet.created}</td>
+                  <td>{planet.edited}</td>
+                  <td>{planet.url}</td>
+                </tr>
+            ))}
         </tbody>
       </table>
     </div>
