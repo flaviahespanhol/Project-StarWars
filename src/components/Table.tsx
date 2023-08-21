@@ -1,26 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import PlanetsAPI from '../context/api-planets-context';
 import { Planets } from '../types';
 
 function Table() {
-  const { planets,
-    filteredPlanets,
-    setPlanets,
+  const { filteredPlanets,
+    newPlanets,
     setFilteredPlanets } = useContext(PlanetsAPI);
-  const [newPlanets, setNewPlanets] = useState<Planets[]>(planets);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredPlanets(e.target.value);
-    // if (e.target.value.length === 0) {
-    //   setNewPlanets(planets as Planets[]);
-    // } else {
-    //   setNewPlanets(filter);
-    // }
   };
-  useEffect(() => {
-    setNewPlanets(planets);
-    console.log(newPlanets);
-  }, []);
+
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const filter = planets.filter((planet) => planet.name.toLowerCase()
   //     .includes(e.target.value));

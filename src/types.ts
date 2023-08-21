@@ -17,6 +17,8 @@ export type Planets = {
 export type PlanetsContext = {
   planets: Planets[],
   setPlanets: (element: []) => void,
+  newPlanets: Planets[],
+  setNewPlanets: (element: []) => void,
   dataFiltered: Planets[],
   setDataFiltered: (element: []) => void,
   filteredPlanets: string,

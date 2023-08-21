@@ -6,6 +6,7 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
   const [planets, setPlanets] = useState<Planets[]>([]);
   const [dataFiltered, setDataFiltered] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState('');
+  const [newPlanets, setNewPlanets] = useState<Planets[]>(planets);
 
   return (
     <PlanetsAPI.Provider
@@ -14,6 +15,8 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
         dataFiltered,
         setDataFiltered,
         filteredPlanets,
+        newPlanets,
+        setNewPlanets,
         setFilteredPlanets } }
     >
       { children }

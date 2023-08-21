@@ -6,12 +6,13 @@ import planetsData from './fetch-api';
 
 function App() {
   // const [loading, setLoading] = useState(false);
-  const { setPlanets } = useContext(PlanetsAPI);
+  const { setPlanets, setNewPlanets } = useContext(PlanetsAPI);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await planetsData();
       setPlanets(data);
+      setNewPlanets(data);
     };
     fetchData();
   }, []);
