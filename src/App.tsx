@@ -3,6 +3,7 @@ import './App.css';
 import Table from './components/Table';
 import PlanetsAPI from './context/api-planets-context';
 import planetsData from './fetch-api';
+import Filters from './components/Filters';
 
 function App() {
   // const [loading, setLoading] = useState(false);
@@ -18,7 +19,10 @@ function App() {
   }, []);
 
   return (
-    <Table />
+    <>
+      <Filters />
+      <Table />
+    </>
   );
 }
 

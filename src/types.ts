@@ -14,15 +14,32 @@ export type Planets = {
   url: string,
 };
 
+export type FilterType = {
+  column: keyof Planets;
+  comparation: string;
+  number: number | string
+};
+
 export type PlanetsContext = {
   planets: Planets[],
   setPlanets: (element: []) => void,
   newPlanets: Planets[],
   setNewPlanets: (element: []) => void,
-  dataFiltered: Planets[],
-  setDataFiltered: (element: []) => void,
   filteredPlanets: string,
   setFilteredPlanets: (element: string) => void,
+  columnOptions: string[],
+  setColumnOptions: any,
+  columnSelected: string,
+  setColumnSelected: any,
+  comparationSelected: string,
+  setComparationSelected: any,
+  inputNumber: number | string,
+  setInputNumber: any,
+  initialFormValue: FilterType,
+  setInitialFormValue: any,
+  filtersArray: FilterType[],
+  setFiltersArray: any,
+
 //   loading: boolean,
 //   setLoading: (element: boolean) => void,
 };
