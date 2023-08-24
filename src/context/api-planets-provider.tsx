@@ -10,7 +10,6 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
     comparation: 'maior que',
     number: '0',
   });
-  // const [filtersArray, setFiltersArray] = useState<FilterType[]>([]);
   const [filteredPlanets, setFilteredPlanets] = useState('');
   const [columnOptions, setColumnOptions] = useState([
     'population',
@@ -19,6 +18,7 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
     'rotation_period',
     'surface_water',
   ]);
+  // const [filtersArray, setFiltersArray] = useState<FilterType[]>([]);
 
   return (
     <PlanetsAPI.Provider

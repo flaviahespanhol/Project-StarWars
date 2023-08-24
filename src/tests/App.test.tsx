@@ -3,39 +3,78 @@ import { render, screen } from '@testing-library/react';
 import App from '../App';
 import { MockFetch } from './mockFetch';
 import { vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
+import PlanetsProvider from '../context/api-planets-provider';
 
-test('Teste se uma das colunas é Name', () => {
-  global.fetch = vi.fn().mockResolvedValue({
-    json: async () => (MockFetch),
-  });
-  render(<App />);
-  const name = screen.getByRole('columnheader', {name: /name/i});
-  expect(name).toBeInTheDocument();
-});
 
-test('Teste se uma das colunas é Rotate Period', () => {
-  global.fetch = vi.fn().mockResolvedValue({
-    json: async () => (MockFetch),
-  });
-  render(<App />);
-  const rotatePeriod = screen.getByRole('columnheader', {name: /rotate period/i});
-  expect(rotatePeriod).toBeInTheDocument();
-});
+describe('Verifica input de busca', () => {
 
-test('Teste se uma das colunas é Diameter', () => {
-  global.fetch = vi.fn().mockResolvedValue({
-    json: async () => (MockFetch),
+  test('Teste se existe um input de buscar planetas', () => {
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
   });
-  render(<App />);
-  const diameter = screen.getByRole('columnheader', {name: /diameter/i});
-  expect(diameter).toBeInTheDocument();
-});
+})
 
-test('Teste se uma das colunas é Climate', () => {
-  global.fetch = vi.fn().mockResolvedValue({
-    json: async () => (MockFetch),
+describe('Verificar os inputs de filtro', () => {
+
+  test('Teste se tem um input de colocar número', () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    const numberInput = screen.getByRole('spinbutton');
+    expect(numberInput).toBeInTheDocument();
   });
-  render(<App />);
-  const climate = screen.getByRole('columnheader', {name: /gravity/i});
-  expect(climate).toBeInTheDocument();
-});
+
+  test('Teste se tem um input de selecionar uma coluna', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+     userEvent.selectOptions(screen.getByTestId('column-filter'), 'population');
+  });
+
+  test('Teste se tem um input de selecionar uma comparação', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    userEvent.selectOptions(screen.getByTestId('comparison-filter'), 'maior que');
+  });
+}
+);
+
+describe('Testando a tabela', () => {
+  test('Teste se tem aparece uma tabela na tela', () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    const tabela = screen.getByRole('table');
+    expect(tabela).toBeInTheDocument();
+  });
+}
+);
+
+// describe('')
