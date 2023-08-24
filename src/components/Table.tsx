@@ -11,15 +11,6 @@ function Table() {
     setFilteredPlanets(e.target.value);
   };
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const filter = planets.filter((planet) => planet.name.toLowerCase()
-  //     .includes(e.target.value));
-  //   setPlanets(filter);
-  //   if (e.target.value.length === 0) {
-  //     setPlanets({ planets });
-  //   }
-  // };
-
   return (
     <div>
       <header>

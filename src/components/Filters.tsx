@@ -1,22 +1,19 @@
-import { MouseEventHandler, useContext } from 'react';
+import { useContext } from 'react';
 import PlanetsAPI from '../context/api-planets-context';
-import { FilterType, Planets } from '../types';
+import { Planets } from '../types';
 
 function Filters() {
   const {
-    planets,
+    newPlanets,
     setNewPlanets,
-    setPlanets,
-    filteredPlanets,
-    filtersArray,
-    setFiltersArray,
+    columnOptions,
     initialFormValue,
     setInitialFormValue } = useContext(PlanetsAPI);
 
-  const handleFilter = (e) => {
+  const handleButtonFilter = (e: React.FormEvent) => {
     e.preventDefault();
     const { column, comparation, number } = initialFormValue;
-    const filter = planets.filter((planet: Planets) => {
+    const filter = newPlanets.filter((planet: Planets) => {
       if (comparation === 'maior que') {
         return Number(planet[column]) > Number(number);
       }
@@ -26,59 +23,10 @@ function Filters() {
       if (comparation === 'igual a') {
         return Number(planet[column]) === Number(number);
       }
-      console.log(filter);
-      return filter;
+      return false;
     });
+    setNewPlanets(filter);
   };
-
-  // const applySimpleFilter = () => {
-  //   if (comparationSelected === 'maior que') {
-  //     const filteredPlanets = planets
-  //       .filter((planet) => Number(planet[column as keyof Planet]) > Number(number));
-  //     setPlanets(filteredPlanets);
-  //   }
-  //   if (comparationSelected === 'menor que') {
-  //     const filteredPlanets = planets
-  //       .filter((planet) => Number(planet[column as keyof Planet]) < Number(number));
-  //     setPlanets(filteredPlanets);
-  //   }
-  //   if (comparationSelected === 'igual a') {
-  //     const filteredPlanets = planets
-  //       .filter((planet) => Number(planet[column as keyof Planet])
-  //         === Number(number));
-  //     setPlanets(filteredPlanets);
-  //   }
-  //   setColumnOptions(columnOptions.filter((filterOption) => filterOption !== column));
-  //   setColumnSelected(columnOptions[1]);
-  //   setAppliedFilters([...appliedFilters, {
-  //     column,
-  //     operator,
-  //     number,
-  //   }]);
-
-  //   if (columnSelected !== columnOptions[0]) {
-  //     setColumnSelected(columnOptions[0]);
-  //   }
-  // };
-  // const handleButtonFilter = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const newFilters = [
-  //     ...filtersArray,
-  //     {
-  //       column: initialFormValue.column,
-  //       value: initialFormValue.comparation,
-  //     },
-  //   ];
-
-  //   let reposCopy = [...planets];
-  //   newFilters.forEach((filter) => {
-  //     const filteredRepos = applySimpleFilter(reposCopy, filter);
-  //     reposCopy = filteredRepos;
-  //   });
-
-  //   setFiltersArray(newFilters);
-  //   setNewPlanets(reposCopy);
-  // };
 
   return (
 
@@ -91,13 +39,11 @@ function Filters() {
             { ...initialFormValue, column: target.value as keyof Planets },
           ) }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>
-            surface_water
-          </option>
+          {
+              columnOptions.map((column) => (
+                <option value={ column } key={ column }>{ column }</option>
+              ))
+           }
         </select>
         <select
           data-testid="comparison-filter"
@@ -121,12 +67,12 @@ function Filters() {
         <button
           type="submit"
           data-testid="button-filter"
-          onClick={ handleFilter }
+          onClick={ handleButtonFilter }
         >
           Filtrar
         </button>
       </form>
-      <div>
+      {/* <div>
         {filtersArray.map((filter: any) => (
           <div key={ filter.column }>
             <span>{filter.column}</span>
@@ -134,7 +80,7 @@ function Filters() {
             <span>{filter.number}</span>
           </div>
         ))}
-      </div>
+      </div> */}
     </>
   );
 }
