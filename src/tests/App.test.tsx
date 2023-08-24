@@ -10,6 +10,9 @@ import PlanetsProvider from '../context/api-planets-provider';
 describe('Verifica input de busca', () => {
 
   test('Teste se existe um input de buscar planetas', () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
     render(
       <PlanetsProvider>
         <App />
