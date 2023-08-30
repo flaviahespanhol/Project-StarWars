@@ -7,8 +7,11 @@ function Filters() {
     newPlanets,
     setNewPlanets,
     columnOptions,
+    setColumnOptions,
     initialFormValue,
-    setInitialFormValue } = useContext(PlanetsAPI);
+    setInitialFormValue,
+    filtersArray,
+    setFiltersArray } = useContext(PlanetsAPI);
 
   const handleButtonFilter = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,8 +29,44 @@ function Filters() {
       return false;
     });
     setNewPlanets(filter);
+    setColumnOptions(columnOptions.filter((element) => element !== column));
+    setFiltersArray([...filtersArray, initialFormValue]);
+    setInitialFormValue({ ...initialFormValue,
+      column: columnOptions
+        .filter((element) => element !== column)[0] });
   };
 
+  // const handleRemoveOneFilterButton = (filter: any) => {
+  //   const { column, number } = initialFormValue;
+
+  //   const removefilter = filtersArray
+  //     .filter((element) => element.column !== filter.column);
+  //   setFiltersArray(removefilter);
+
+  //   if (removefilter.length > 0) {
+  //     removefilter.forEach((element: any) => {
+  //       if (element.column === 'maior que') {
+  //         const filter1 = newPlanets.filter((planet: Planets) => {
+  //           return Number(planet[column]) > Number(number);
+  //         });
+  //         setNewPlanets(filter1);
+  //       }
+  //       if (element.column === 'menor que') {
+  //         const filter2 = newPlanets.filter((planet: Planets) => {
+  //           return Number(planet[column]) < Number(number);
+  //         });
+  //         setNewPlanets(filter2);
+  //       }
+  //       if (element.column === 'igual a') {
+  //         const filter3 = newPlanets.filter((planet: Planets) => {
+  //           return Number(planet[column]) === Number(number);
+  //         });
+  //         setNewPlanets(filter3);
+  //       }
+  //     });
+  //   }
+  // };
+  console.log(filtersArray);
   return (
 
     <>
@@ -71,16 +110,25 @@ function Filters() {
         >
           Filtrar
         </button>
+        <button
+          data-testid="button-remove-filters"
+          // onClick={ handleRemoveAllFiltersButton }
+        >
+          Remover todas filtragens
+        </button>
       </form>
-      {/* <div>
-        {filtersArray.map((filter: any) => (
-          <div key={ filter.column }>
+      <div>
+        {filtersArray.length > 0 && filtersArray.map((filter: any) => (
+          <div data-testid="filter" key={ filter.column }>
             <span>{filter.column}</span>
             <span>{filter.comparation}</span>
             <span>{filter.number}</span>
+            <button>
+              X
+            </button>
           </div>
         ))}
-      </div> */}
+      </div>
     </>
   );
 }

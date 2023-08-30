@@ -8,7 +8,7 @@ function Table() {
     setFilteredPlanets } = useContext(PlanetsAPI);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredPlanets(e.target.value);
+    setFilteredPlanets(e.target.value.toLowerCase());
   };
 
   return (

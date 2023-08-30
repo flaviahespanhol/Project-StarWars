@@ -18,8 +18,8 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
     'rotation_period',
     'surface_water',
   ]);
-  // const [filtersArray, setFiltersArray] = useState<FilterType[]>([]);
-
+  const [filtersArray, setFiltersArray] = useState<FilterType[]>([]);
+  const [newColumn, setNewColumn] = useState(columnOptions);
   return (
     <PlanetsAPI.Provider
       value={ { planets,
@@ -32,8 +32,10 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
         setColumnOptions,
         initialFormValue,
         setInitialFormValue,
-        // filtersArray,
-        // setFiltersArray,
+        filtersArray,
+        setFiltersArray,
+        newColumn,
+        setNewColumn,
       } }
     >
       { children }

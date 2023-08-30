@@ -31,8 +31,10 @@ export type PlanetsContext = {
   setColumnOptions: any,
   initialFormValue: FilterType,
   setInitialFormValue: any,
-  // filtersArray: FilterType[],
-  // setFiltersArray: any,
+  filtersArray: FilterType[],
+  setFiltersArray: any,
+  newColumn: string[],
+  setNewColumn: any,
 
 //   loading: boolean,
 //   setLoading: (element: boolean) => void,
