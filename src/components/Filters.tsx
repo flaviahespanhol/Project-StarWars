@@ -4,6 +4,7 @@ import { Planets } from '../types';
 
 function Filters() {
   const {
+    planets,
     newPlanets,
     setNewPlanets,
     columnOptions,
@@ -11,9 +12,11 @@ function Filters() {
     initialFormValue,
     setInitialFormValue,
     filtersArray,
-    setFiltersArray } = useContext(PlanetsAPI);
+    setFiltersArray,
+    sortState,
+    setSortState } = useContext(PlanetsAPI);
 
-  const handleButtonFilter = (e: React.FormEvent) => {
+  const handleFilterButton = (e: React.FormEvent) => {
     e.preventDefault();
     const { column, comparation, number } = initialFormValue;
     const filter = newPlanets.filter((planet: Planets) => {
@@ -36,39 +39,40 @@ function Filters() {
         .filter((element) => element !== column)[0] });
   };
 
-  // const handleRemoveOneFilterButton = (filter: any) => {
-  //   const { column, number } = initialFormValue;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement
+  | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setSortState({ ...sortState, [name]: value });
+  };
 
-  //   const removefilter = filtersArray
-  //     .filter((element) => element.column !== filter.column);
-  //   setFiltersArray(removefilter);
+  const handleOrderButton = (event: React.MouseEvent<MouseEvent | HTMLButtonElement>) => {
+    event.preventDefault();
 
-  //   if (removefilter.length > 0) {
-  //     removefilter.forEach((element: any) => {
-  //       if (element.column === 'maior que') {
-  //         const filter1 = newPlanets.filter((planet: Planets) => {
-  //           return Number(planet[column]) > Number(number);
-  //         });
-  //         setNewPlanets(filter1);
-  //       }
-  //       if (element.column === 'menor que') {
-  //         const filter2 = newPlanets.filter((planet: Planets) => {
-  //           return Number(planet[column]) < Number(number);
-  //         });
-  //         setNewPlanets(filter2);
-  //       }
-  //       if (element.column === 'igual a') {
-  //         const filter3 = newPlanets.filter((planet: Planets) => {
-  //           return Number(planet[column]) === Number(number);
-  //         });
-  //         setNewPlanets(filter3);
-  //       }
-  //     });
-  //   }
-  // };
-  console.log(filtersArray);
+    const { column, sort } = sortState;
+
+    let data = planets;
+
+    const planetsOrdened = data
+      .filter((element: any) => (
+        element[column] !== 'unknown'))
+      .sort((a, b) => {
+        if (sort === 'DESC') {
+          return Number(b[column as keyof Planets]) - Number(a[column as keyof Planets]);
+        }
+        return Number(a[column as keyof Planets]) - Number(b[column as keyof Planets]);
+      });
+
+    if (planets.length === 0) {
+      data = newPlanets;
+    }
+
+    const unknown = data.filter((element: any) => (
+      element[column] === 'unknown'));
+
+    return setNewPlanets(planetsOrdened) && planetsOrdened.push(...unknown);
+  };
+
   return (
-
     <>
       <form>
         <select
@@ -103,10 +107,59 @@ function Filters() {
             { ...initialFormValue, number: target.value },
           ) }
         />
+        <label>
+          Ordenar
+          <select
+            onChange={ handleChange }
+            name="column"
+            value={ sortState.column }
+            id="column-sort"
+            data-testid="column-sort"
+          >
+            {
+              columnOptions.map((column) => (
+                <option value={ column } key={ column }>{ column }</option>
+              ))
+           }
+          </select>
+        </label>
+        <div>
+          <label>
+            Ordem Crescente
+            <input
+              onChange={ handleChange }
+              checked={ sortState.sort === 'ASC' }
+              type="radio"
+              name="sort"
+              value="ASC"
+              data-testid="column-sort-input-asc"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Ordem Decrescente
+            <input
+              onChange={ handleChange }
+              checked={ sortState.sort === 'DESC' }
+              type="radio"
+              name="sort"
+              value="DESC"
+              data-testid="column-sort-input-desc"
+            />
+          </label>
+        </div>
+        <button
+          type="submit"
+          data-testid="column-sort-button"
+          onClick={ handleOrderButton }
+        >
+          Aplicar Ordernação
+        </button>
         <button
           type="submit"
           data-testid="button-filter"
-          onClick={ handleButtonFilter }
+          onClick={ handleFilterButton }
         >
           Filtrar
         </button>

@@ -22,7 +22,7 @@ export type FilterType = {
 
 export type PlanetsContext = {
   planets: Planets[],
-  setPlanets: (element: []) => void,
+  setPlanets: any,
   newPlanets: Planets[],
   setNewPlanets: any,
   filteredPlanets: string,
@@ -35,7 +35,14 @@ export type PlanetsContext = {
   setFiltersArray: any,
   newColumn: string[],
   setNewColumn: any,
+  sortState: any,
+  setSortState: any,
 
 //   loading: boolean,
 //   setLoading: (element: boolean) => void,
+};
+
+export type SortType = {
+  column: string;
+  sort: string;
 };

@@ -102,6 +102,36 @@ describe('Verificar o botão Filtrar', () => {
 }
 );
 
+describe('Verificar os inputs de Ordenação', () => {
+
+  test('Se tem um botão com o nome Aplicar Ordenação na tela e se ele funciona', () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    const filtrarBotão = screen.getByRole('button', {name: /aplicar ordernação/i});
+    expect(filtrarBotão).toBeInTheDocument();
+    userEvent.click(filtrarBotão);
+  });
+
+  test('Se tem um input do tipo radio Ordem Descrescente', () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (MockFetch),
+    });
+    render(
+      <PlanetsProvider>
+        <App />
+      </PlanetsProvider>
+    );
+    const ordemDescrescenteRadio = screen.getByText(/ordem decrescente/i);
+    userEvent.click(ordemDescrescenteRadio);
+  });
+}
+);
 
 
 

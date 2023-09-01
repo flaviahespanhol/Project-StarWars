@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PlanetsAPI from './api-planets-context';
-import { FilterType, Planets } from '../types';
+import { FilterType, Planets, SortType } from '../types';
 
 function PlanetsProvider({ children } : { children: React.ReactNode }) {
   const [planets, setPlanets] = useState<Planets[]>([]);
@@ -20,6 +20,11 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
   ]);
   const [filtersArray, setFiltersArray] = useState<FilterType[]>([]);
   const [newColumn, setNewColumn] = useState(columnOptions);
+  const [sortState, setSortState] = useState<SortType>({
+    column: 'population',
+    sort: 'ASC',
+  });
+
   return (
     <PlanetsAPI.Provider
       value={ { planets,
@@ -36,6 +41,8 @@ function PlanetsProvider({ children } : { children: React.ReactNode }) {
         setFiltersArray,
         newColumn,
         setNewColumn,
+        sortState,
+        setSortState,
       } }
     >
       { children }
