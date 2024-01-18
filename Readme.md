@@ -1,33 +1,47 @@
-# Título do Projeto
+# Projeto StarWars
 
 ## Descrição
 
-Este repositório está em construção. Aqui você encontrará [breve resumo do projeto ou curso] e seus componentes.
+Nesse projeto foi criada uma aplicação que consulta uma API para recuperar dados dos planetas do universo de Star Wars. Com os dados retornados dessa API foi criada uma tabela com alguns filtros. Os planetas poderão ser filtrados por suas características, como população, período orbital, diâmetro e outras.
+
 
 ## Conteúdo
 
-- [Instruções de Instalação](#instruções-de-instalação)
-- [Como Usar](#como-usar)
+Os objetivos desse projeto são:
 
-## Instruções de Instalação
+1. Utilizar Context API do React na aplicação.
+2. Criar filtros para filtrar os dados retornados da API.
+3. Desenvolver testes de coberturas da aplicação.
 
-Descreva aqui as instruções necessárias para configurar o ambiente de desenvolvimento e instalar quaisquer dependências.
+## Desenvolvimento do projeto
 
-## Como Usar
+`Requisito 1`
+Fazer uma requisição para o endpoint /planets da API de Star Wars e preencha uma tabela com os dados retornados, com exceção dos dados da coluna residents.
 
-Explique como usar. Forneça exemplos de código, capturas de tela ou demonstrações.
+`Requisito 2`
+Criar um filtro de texto para a tabela.
 
-## Contribuição
+`Requisito 3`
+Criar um filtro para valores numéricos.
 
-Se você deseja contribuir para este projeto, siga estas etapas para contribuir:
+`Requisito 4`
+Implementar múltiplos filtros numéricos.
+* Deverá ser possível adicionar múltiplos filtros numéricos. Todos os filtros adicionados devem funcionar de forma conjunta.
 
-1. Crie um fork deste repositório.
-2. Crie um novo branch com um nome descritivo: `git checkout -b minha-contribuicao`
-3. Faça suas alterações e commit: `git commit -m "Adicionando minha contribuição"`
-4. Envie seu branch para o repositório: `git push origin minha-contribuicao`
-5. Abra um pull request neste repositório e aguarde o feedback.
+`Requisito 5`
+Desenvolver testes para atingir 30% de cobertura total da aplicação.
 
-Lembre-se de que todas as contribuições são valorizadas e ajudam a tornar este projeto melhor para todos!
+`Requisito 6`
+Não utilizar filtros repetidos. Deve-se usar Context API e Hooks para fazer o gerenciamento do estado da aplicação.
+* Caso um filtro seja totalmente preenchido, um novo filtro de valores numéricos deve ser carregado.
+Esse novo filtro não deve incluir quaisquer colunas que já tenham sido selecionadas em filtros de valores numéricos anteriores.
+* Caso todas as colunas já tenham sido inclusas em filtros anteriores, não deve ser carregado um novo filtro.
 
-## Continue como desejar este Readme.md
-**Observação:** Este repositório está em construção e será atualizado regularmente. Sinta-se à vontade para adicionar mais seções conforme necessário para o seu projeto.
+`Requisito 8`
+Desenvolva testes para atingir 60% de cobertura total da aplicação.
+
+`Requisito 9`
+Ordene as colunas de forma ascendente ou descendente.
+
+`Requisito 10`
+Desenvolva testes para atingir 90% de cobertura total da aplicação.
